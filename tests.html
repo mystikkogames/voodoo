@@ -1,0 +1,30 @@
+<CTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>voodoo</title>
+		<script src='voodoo.js'></script>
+		<script type="text/javascript">
+			voodoo(document).ready(() => {
+				voodoo(".button").query().css({opacity:1}).click((e) => {var t = e.srcElement; if (t.style.opacity < 0.3) voodoo(t).fade_in({fade_to: 1}); else voodoo(t).fade_out({fade_to: 0.2});});
+				voodoo("#hideme").query().click((e) => {voodoo(e.srcElement).hide()});				
+				voodoo("#noclass").query().click((e) => {voodoo(e.srcElement).add_class("classy").html("Classy now");});
+			});
+		</script>
+		<style>    	
+			body {padding: 0; margin: 0; background: #FFF; font: 15px arial, sans-serif;}
+			div {margin: 10px; padding: 10px; width: 100px; height: 100px; background: #CCC;}
+			.classy {background: #3CC;}
+		</style>
+	</head>
+	<body>
+		<h2>voodoo tests</h2>
+		<div class="button">Press me</div>
+		<div class="button">Press me</div>
+		<div id="hideme">Hide me</div>
+		<div class="button">Press me</div>
+		<div class="button">Press me</div>
+		<div class="button">Press me</div>
+		<div id="noclass">No class</div>
+	</body>
+</html>

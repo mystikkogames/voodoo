@@ -1,0 +1,37 @@
+voodoo - A lightweight JavaScript framework
+
+voodoo is:
+- ... meant for mathematical operations
+- ... written in JavaScript way
+- ... very lightweight
+
+Installation:
+ - <script src='voodoo.js'></script>
+ - <script type="text/javascript">voodoo(document).ready(() => {alert("ready to use voodoo.js!");});</script>
+
+Docs:
+ 1. voodoo("2.3") // set value
+ 2. voodoo("2.3").get() // 2.3
+ 3. voodoo("12.12345").to_precision(3).get() // 12.1
+ 4. voodoo("1.945678").to_precision(3).get() // 1.95
+ 5. voodoo("1 + 1").eval().get() // 2
+ 6. voodoo("3*4.25/7/3.2*3.21^2^2").eval().to_precision(4).get() // 60.43
+ 7. voodoo(7.6).floor().get() // 7
+ 8. voodoo(7.6).ceil().get() // 8
+ 9. voodoo(-7.6).abs().get() // 7.6
+ 10. voodoo([-2, -4, -6]).sum().get() // -12
+ 11. voodoo([-2, -4, -6]).abs().sum().get() // 12
+ 12. voodoo(9).sqrt().get() // 3
+ 13. voodoo([9, 16]).sqrt().get() // 3
+ 14. voodoo([9, 16]).sqrt().sum().get() // 7
+ 15. voodoo([2, 3, 4]).dot_product().get() // 29
+ 16. voodoo(4).dot_product().get() // 16
+ 17. voodoo(0.12).asin().get() // 0.12028988239478806
+ 18. voodoo(0.12).cos().sin().abs().to_precision(4).get() // 0.8376
+ 19. voodoo(voodoo.PI/2).sin().get() // 1
+ 20. voodoo(voodoo.PI/2).cos().to_precision(3).get() // 6.12e-17
+ 21. voodoo(0.1).asin().to_precision(3).get() // 0.100
+ 
+Versions:
+ - 0.1 
+  - Initial release.
