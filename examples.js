@@ -1,7 +1,7 @@
 /*
-voodoo.js A JavaScript framework
+voodoo - A lightweight JavaScript framework
 language: JavaScript
-version: 0.1
+version: 0.2
 author: mystikkogames ( mystikkogames@protonmail.com )
 license: GPLv3
 */
@@ -21,7 +21,8 @@ function Exampler() {
 	
 	this.unittests = () => {	
 		assert(voodoo(42).multiply(2).get() == 2 * 42);		
-		assert(voodoo(100).sqrt().get() == 10);
+		assert(voodoo(42 * 42).sqrt().get() == 42);
+		assert(voodoo([2, 7, 42]).get(-1) == 42);
 		assert(voodoo(42).divide(2).get() == 42 / 2);
 		assert(voodoo("1 + 1").eval().get() == 2);	
 		assert(voodoo(100).sqrt().get() == 10);		
@@ -29,9 +30,11 @@ function Exampler() {
 		assert(voodoo(42).divide(2).get() == 42 / 2);			
 		var c = voodoo({re: 2, im: 5}).minus_complex(1, 3).get(); assert(c.re == 1 && c.im == 2);
 		c = voodoo([{re: 2, im: 5}, {re: 1, im: 7}]).minus_complex(1, 3).get(1); assert(c.re === 0 && c.im === 4);		
-		assert(voodoo().range(4, 6).len() == 2);	
+		assert(voodoo(voodoo.range(4, 6)).len() == 3);	
+		assert(voodoo(voodoo.range(1, 122)).get(-1) == 122);	
+		assert(voodoo.range(4, 6).length == 3);	
 		assert(voodoo(42*42).sqrt().get() == 42);		
-		assert(voodoo([2, 3]).each(x => {return 2 * x;}).sum().get() == 10);		
+		assert(voodoo([2, 3]).each(x => {return 2 * x;}).sum().get() == 2*2 + 2*3);		
 		assert(voodoo({a:34, b:77}).extend({b:42}).get().b == 42);			
 		assert(voodoo({a:34, b:77}).extend({a:42}).get().a == 42);		
 		assert(voodoo({a:34, b:77}).extend({x:42}).get().x == 42);		
@@ -54,29 +57,32 @@ function Exampler() {
 		assert(voodoo("3*4.25/7/3.2").eval().to_precision(3).get() == 0.569);	
 		assert(voodoo("9*8/9-3+2").eval().to_precision(3).get() == 7);	
 		assert(voodoo("6*8/9-3+2").eval().to_precision(2).get() == 4.3);
-		assert(voodoo("3+4*2/(1-5)^2^3").eval().to_precision(6).get() == 3.00012);			
+		assert(voodoo("3+4*2/(1-5)^2^3").eval().to_precision(6).get() == 3.00012);	
+		assert(voodoo("2*3/(4-7*(5/2.12)/(3*4.12)+4)/2.1-1-1").eval().to_precision(3).get() == -1.57);			
 		print("voodoo unittests OK!");
 		return this;
 	};
 	
 	this.docs = () => {		
-		var e = voodoo().timer_start();
+		var e = voodoo().timer_start();		
 		this.n = 0;
-		this.example("voodoo(\"2.3\") // set value", 0);			
-		this.example("voodoo(\"2.3\").get()");
+		this.example("voodoo(\"2^2^2/11.3*3/(4-7*(5/2.12)/(3*4.12)+4)/2.1-1-1\").eval().to_precision(4).get()");	
+		this.example("voodoo([-7.6, 4, 5]).unit_vector().to_precision(3).join(\" \").v");			
+		this.example("voodoo([2.3, 5, 6, 7, 8, 42]).get(-1)");
+		this.example("voodoo([2, 3, 4]).dot_product().get()");
+		this.example("voodoo.eval(\"phi * 4.25 / e / 3.2 * 3.21 ^ 2 ^ 2 * pi\")");	
+		this.example("voodoo([2, 4, 5]).unit_vector().square().sum().get()");	
 		this.example("voodoo(\"12.12345\").to_precision(3).get()");
-		this.example("voodoo(\"1.945678\").to_precision(3).get()");	
 		this.example("voodoo(\"1 + 1\").eval().get()");	
 		this.example("voodoo(\"3*4.25/7/3.2*3.21^2^2\").eval().to_precision(4).get()");	
 		this.example("voodoo(7.6).floor().get()");
 		this.example("voodoo(7.6).ceil().get()");		
-		this.example("voodoo(-7.6).abs().get()");	
+		this.example("voodoo(-7.6).abs().get()");							
 		this.example("voodoo([-2, -4, -6]).sum().get()");		
 		this.example("voodoo([-2, -4, -6]).abs().sum().get()");		
 		this.example("voodoo(9).sqrt().get()");
 		this.example("voodoo([9, 16]).sqrt().get()");
 		this.example("voodoo([9, 16]).sqrt().sum().get()");
-		this.example("voodoo([2, 3, 4]).dot_product().get()");
 		this.example("voodoo(4).dot_product().get()");
 		this.example("voodoo(0.12).asin().get()");	
 		this.example("voodoo(0.12).cos().sin().abs().to_precision(4).get()");
