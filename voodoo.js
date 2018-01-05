@@ -1,7 +1,7 @@
 /*
 voodoo.js - A lightweight JavaScript framework
 language: JavaScript
-version: 0.3
+version: 0.31
 author: mystikkogames ( mystikkogames@protonmail.com )
 license: GPLv3
 */
@@ -10,7 +10,7 @@ var voodoo = 0;
 (function () { 	
 
 const NAME = "voodoo.js"; 
-const VERSION = "0.3"; 
+const VERSION = "0.31"; 
 const AUTHOR = "mystikkogames ( mystikkogames@protonmail.com )";
 const NDEBUG = 0; // 1 : on production 0 : development
 
@@ -23,8 +23,8 @@ function Evaluator(istr) {
 	this.os = [];
 	this.wasop = 1;
 	this.solve_oper = () => {
-		var q = this.os.pop();
-		var a = this.ns.pop(), b = 0;
+		let q = this.os.pop();
+		let a = this.ns.pop(), b = 0;
 		if (!voodoo.array_contains(["cos", "tan", "sin", "acos", "atan", "asin", "abs"], q)) b = this.ns.pop();
 		switch (q) {
 			case "+": 
@@ -80,12 +80,12 @@ function Evaluator(istr) {
 	};
 		
 	this.solve = (o) => {
-		var opers_prece = {"+": 2, "-": 2, "*": 3, "/": 3, "%": 3, "^": 4};
-		var opers_asso = {"+": 0, "-": 0, "*": 0, "/": 0, "%": 0, "^": 1};
+		let opers_prece = {"+": 2, "-": 2, "*": 3, "/": 3, "%": 3, "^": 4};
+		let opers_asso = {"+": 0, "-": 0, "*": 0, "/": 0, "%": 0, "^": 1};
 		if (o == ")") {
 			while (this.os.length > 0) {
 				if (voodoo.array_last(this.os) == "(") {
-					var yy = this.os.pop();
+					let yy = this.os.pop();
 					if (this.os.length && voodoo.array_contains(["cos", "tan", "sin", "acos", "atan", "asin", "abs", "max", "min"], voodoo.array_last(this.os)))
 						this.solve_oper();	
 					return;
@@ -105,7 +105,7 @@ function Evaluator(istr) {
 	};
 	
 	this.is_number = () => {
-		var t = /^[\-]?\d*\.?\d+/.exec(this.equation);
+		let t = /^[\-]?\d*\.?\d+/.exec(this.equation);
 		if (t) {
 			if (t[0][0] == "-" && !this.wasop) return 0;
 			this.wasop = 0;
@@ -117,7 +117,7 @@ function Evaluator(istr) {
 	};
 	
 	this.is_useless = () => {	
-		var t = /^,/.exec(this.equation);
+		let t = /^,/.exec(this.equation);
 		if (t) {
 			this.wasop = 1;
 			this.equation = this.equation.slice(t[0].length);
@@ -127,7 +127,7 @@ function Evaluator(istr) {
 	};
 	
 	this.is_const = () => {
-		var t = /^(PI)|^(E)|^(PHI)/.exec(this.equation);
+		let t = /^(PI)|^(E)|^(PHI)/.exec(this.equation);
 		if (t) {
 			this.wasop = 0;
 			switch (t[0]) {
@@ -143,7 +143,7 @@ function Evaluator(istr) {
 	};
 	
 	this.is_func = () => {	
-		var t = /^(sin)|^(cos)|^(tan)|^(asin)|^(acos)|^(atan)|^(max)|^(abs)|^(min)/.exec(this.equation);
+		let t = /^(sin)|^(cos)|^(tan)|^(asin)|^(acos)|^(atan)|^(max)|^(abs)|^(min)/.exec(this.equation);
 		if (t) {
 			this.wasop = 0;
 			this.solve(t[0]);
@@ -154,7 +154,7 @@ function Evaluator(istr) {
 	};
 	
 	this.is_oper = () => {	
-		var t = /^[\+\%\-\*\/\(\)\^]/.exec(this.equation);
+		let t = /^[\+\%\-\*\/\(\)\^]/.exec(this.equation);
 		if (t) {
 			assert(t[0].length == 1);
 			this.wasop = 1;
@@ -182,20 +182,14 @@ function Evaluator(istr) {
 }
 
 // https://stackoverflow.com/a/3177838
-function time_since(seconds) {
-	var interval = voodoo.floor(seconds / 31536000);
-	if (interval > 1) return `${interval} years`;
-	interval = voodoo.floor(seconds / 2592000);
-	if (interval > 1) return `${interval} months`;
-	interval = voodoo.floor(seconds / 86400);
-	if (interval > 1) return `${interval} days`;
-	interval = voodoo.floor(seconds / 3600);
-	if (interval > 1) return `${interval} hours`;
-	interval = voodoo.floor(seconds / 60);
-	if (interval > 1) return `${interval} minutes`;
-	if (seconds > 1)
-		return `${voodoo.floor(seconds)} seconds`;
-	return `${seconds}s`;
+function time_since(s) {
+	let i = voodoo.floor(s / 31536000);	if (i > 1) return `${i} years`;
+	i = voodoo.floor(s / 2592000); if (i > 1) return `${i} months`;
+	i = voodoo.floor(s / 86400); if (i > 1) return `${i} days`;
+	i = voodoo.floor(s / 3600);	if (i > 1) return `${i} hours`;
+	i = voodoo.floor(s / 60); if (i > 1) return `${i} minutes`;
+	if (s > 1) return `${voodoo.floor(s)} s`;
+	return `${s}s`;
 }
 
 function is_array(x) {return Array.isArray(x) ? 1 : 0;}
@@ -205,8 +199,8 @@ function is_undefined(x) {return x === undefined ? 1 : 0;}
 function get_keys(o) {const a = []; for (const key of iterate_object_keys(o)) a.push(key); return a;}
 function get_values(o) {const a = []; for (const value of iterate_object_values(o)) a.push(value); return a;}
 
-function *iterate_object_keys(o) {for (const i in o) {if (!o.hasOwnProperty(i)) continue; yield i;}}
-function *iterate_object_values(o) {for (const i in o) {if (!o.hasOwnProperty(i)) continue; yield o[i];}}
+function *iterate_object_keys(o) {for (const i in o) {if (o.hasOwnProperty(i)) yield i;}}
+function *iterate_object_values(o) {for (const i in o) {if (o.hasOwnProperty(i)) yield o[i];}}
 
 function deep_copy(o) {		
 	var c = [];
@@ -223,7 +217,7 @@ function each(o, f) {
 	if (is_undefined(o)) return;
 	for (const i in o) {
 		if (!o.hasOwnProperty(i)) continue;
-		var t = f(o[i], i);
+		let t = f(o[i], i);
 		if (t !== undefined)
 			o[i] = t;
 	}
@@ -238,14 +232,12 @@ function extend(a, b) {
 	}
 }
 
-function range(a, b) {var t = []; for (var i = a; i <= b; i++) t.push(i); return t;};	
-function abs(x) {return x < 0 ? -x : x;}
 function not_zero(x, msg = "voodoo.js error: Can't be 0") {if (x === 0) throw msg; return x;}
 
 // https://jaketrent.com/post/addremove-classes-raw-javascript/
 function has_class(e, n) {if (e.classList) return e.classList.contains(n); else return !!e.className.match(new RegExp(`(\\s|^)${n}(\\s|$)`));}
 function add_class(e, n) {if (e.classList) e.classList.add(n); else if (!has_class(e, n)) e.className += ` ${n}`;}
-function remove_class(e, n) {if (e.classList) e.classList.remove(n); else if (has_class(e, n)) {var reg = new RegExp(`(\\s|^)${n}(\\s|$)`); e.className=e.className.replace(reg, ' ');}}
+function remove_class(e, n) {if (e.classList) e.classList.remove(n); else if (has_class(e, n)) {let reg = new RegExp(`(\\s|^)${n}(\\s|$)`); e.className = e.className.replace(reg, ' ');}}
 
 var evaluator = (s) => {return new Evaluator(s);};
 var reqanimframe = (() => {return window.requestAnimationFrame || window.requestAnimationFrame || function(c, e){window.setTimeout(c, 1000 / 60);};})();
@@ -262,17 +254,17 @@ function Voodoo() {
 	this.timer_start = () => {this.time_start = new Date(); return this;};		
 	this.timer_end = () => {this.time_val = (new Date().getTime() - this.time_start.getTime()) / 1000; return this;};
 	this.time_since = () => {return this.set(time_since(this.time_val));};	
-	this.values = () => {var t = []; return this.each((v) => {if (is_object(v)) {for (const value of iterate_object_values(v)) t.push(value);} else t.push(v);}).set(t);}; 		
-	this.keys = () => {var t = []; return this.each((v, k) => {if (is_object(v)) {for (const key of iterate_object_keys(v)) t.push(key);} else t.push(k);}).set(t);};	
+	this.values = () => {let t = []; return this.each((v) => {if (is_object(v)) {for (const value of iterate_object_values(v)) t.push(value);} else t.push(v);}).set(t);}; 		
+	this.keys = () => {let t = []; return this.each((v, k) => {if (is_object(v)) {for (const key of iterate_object_keys(v)) t.push(key);} else t.push(k);}).set(t);};	
 	this.trim = () => {return this.each((v) => {return v.trim();});};
 	this.slice = (a, b) => {return this.each((v) => {return v.slice(a, b);});};
 	this.deep_copy = () => {this.v = voodoo.deep_copy(this.v); return this;};
 	this.first = () => {this.v = this.v[0]; return this;};
 	this.last = () => {this.v = voodoo.array_last[this.v]; return this;};
 	this.debug = () => {return this.each((v) => {return print(v);});};	
-	this.join = (s) => {var t = 0; return this.each((v) => {return t++ ? `${s} ${v}` : v;});};	
+	this.join = (s) => {let t = 0; return this.each((v) => {return t++ ? `${s} ${v}` : v;});};	
 	this.set = (v = 0) => {if (is_array(v)) this.v = v; else this.v = [v]; return this;}; 		
-	this.get = (n = 0) => {var l = this.v.length; if (n < 0) n = l + n; n = abs(n) % l; return this.v[n];}; 		
+	this.get = (n = 0) => {let l = this.v.length; if (n < 0) n = l + n; n = voodoo.abs(n) % l; return this.v[n];}; 		
 	this.single = (f) => {f(); return this;};
 	this.len = () => {return this.v.length;};	
 	this.complex = (re, im) => {return this.set({"re": re, "im": im});};
@@ -281,20 +273,20 @@ function Voodoo() {
 	
 	this.plus_complex = (re, im) => {return this.each((v) => {v.re += re; v.im += im;});};
 	this.minus_complex = (re, im) => {return this.plus_complex(-re, -im);};
-	this.unit_vector = () => {var l = 0; return this.each((v) => {l += v * v;}).single(() => {l = not_zero(voodoo.sqrt(l));}).each((v) => {return v / l;});};
+	this.unit_vector = () => {let l = 0; return this.each((v) => {l += v * v;}).single(() => {l = not_zero(voodoo.sqrt(l));}).each((v) => {return v / l;});};
 	this.sqrt = () => {return this.each((v) => {return voodoo.sqrt(v);});}; 		
 	this.numerize = () => {return this.each((v) => {return voodoo.numerize(v);});};
-	this.sum = () => {var r = 0, s = 1; return this.each((v) => {r = s ? v : r + v; s = 0;}).set(r);};
+	this.sum = () => {let r = 0, s = 1; return this.each((v) => {r = s ? v : r + v; s = 0;}).set(r);};
 	this.multiply = (x) => {return this.each((v) => {return v * x;});};
 	this.plus = (x) => {return this.each((v) => {return v + x;});};
 	this.minus = (x) => {return this.each((v) => {return v - x;});};	
 	this.square = () => {return this.each((v) => {return voodoo.square(v);});};	
 	this.cube = () => {return this.each((v) => {return voodoo.cube(v);});};	
-	this.abs = () => {return this.each((v) => {return abs(v);});};
+	this.abs = () => {return this.each((v) => {return voodoo.abs(v);});};
 	this.floor = () => {return this.each((v) => {return voodoo.floor(v);});};	
 	this.ceil = () => {return this.each((v) => {return voodoo.ceil(v);});};	
 	this.tan = () => {return this.each((v) => {return voodoo.tan(v);});};	
-	this.dot_product = () => {var r = 0; return this.each((v) => {r += v * v;}).set(r);};	
+	this.dot_product = () => {let r = 0; return this.each((v) => {r += v * v;}).set(r);};	
 	this.sin = () => {return this.each((v) => {return voodoo.sin(v);});};	
 	this.cos = () => {return this.each((v) => {return voodoo.cos(v);});};
 	this.asin = () => {return this.each((v) => {return voodoo.asin(v);});};
@@ -305,28 +297,28 @@ function Voodoo() {
 	this.exp = (x) => {return this.each((v) => {return voodoo.exp(v, x);});}; 		
 	this.divide = (x) => {not_zero(x, "voodoo.js error: Division by 0"); return this.each((v) => {return v /= x;});};	
 	this.mod = (x) => {not_zero(x, "voodoo.js error: Division by 0"); return this.each((v) => {return v %= x;});};	
-	this.average = () => {var n = 0, l = 0; return this.each((v) => {n += v; l++;}).single(() => {not_zero(l, "voodoo error: Division by 0");}).set(n / l);};
+	this.average = () => {let n = 0, l = 0; return this.each((v) => {n += v; l++;}).single(() => {not_zero(l, "voodoo.js error: Division by 0");}).set(n / l);};
 	this.to_precision = (n) => {return this.each((v) => {return voodoo.numerize(v).toPrecision(n);});};
 	this.eval = () => {return this.each((s) => {return voodoo.eval(s);});};	
 	
 	// html
 	
-	this.query = () => {var a = []; return this.each((v) => {for (const q of document.querySelectorAll(v)) a.push(q);}).set(a);};
+	this.query = () => {let a = []; return this.each((v) => {for (const q of document.querySelectorAll(v)) a.push(q);}).set(a);};
 	this.append_html = (html) => {return this.each((e) => {e.innerHTML += html;});};
 	this.html = (html) => {return this.each((e) => {e.innerHTML = html;});};
 	this.ready = (f) => {return this.each((e) => {e.addEventListener('DOMContentLoaded', () => {f();});});};
 	this.css = (o) => {return this.each((e) => {each(o, (v, k) => {e.style[k] = v;});});};	
 	this.ajax = () => {return this.each((v) => {	
-		var r = new XMLHttpRequest(); r.open(v.type, v.url, true);
+		let r = new XMLHttpRequest(); r.open(v.type, v.url, true);
 		r.onreadystatechange = () => {if (r.readyState != 4 || r.status != 200) return; v.success(r.responseText);}; r.send(v.data);});};
 	this.fade_out = (params) => {return this.each((e) => {
 		e.style.opacity = e.style.opacity || 1;
-		var [n, o] = [voodoo.numerize(e.style.opacity), voodoo({fade_to: 0, done: () => {}}).extend(params).get()];
+		let [n, o] = [voodoo.numerize(e.style.opacity), voodoo({fade_to: 0, done: () => {}}).extend(params).get()];
   		(function fade() {n -= 0.1; e.style.opacity = n; if (n > o.fade_to) reqanimframe(fade); else o.done();})();});};	
 	this.fade_in = (params) => {
 		return this.each((e) => {
 			e.style.opacity = e.style.opacity || 0;
-			var [n, o] = [voodoo.numerize(e.style.opacity), voodoo({fade_to: 1, done: () => {}}).extend(params).get()];
+			let [n, o] = [voodoo.numerize(e.style.opacity), voodoo({fade_to: 1, done: () => {}}).extend(params).get()];
 			(function fadein() {n += 0.1; e.style.opacity = n; if (n < o.fade_to) reqanimframe(fadein); else o.done();})();
 		});};
 	this.hide = () => {return this.css({display: "none"});};
@@ -358,16 +350,15 @@ voodoo.assert = assert;
 voodoo.deep_copy = deep_copy;
 voodoo.each = each;
 voodoo.extend = extend;
-voodoo.range = range;
+voodoo.range = (a, b) => {var t = []; for (let i = a; i <= b; i++) t.push(i); return t;};
 voodoo.sqrt = Math.sqrt;
-voodoo.abs = Math.abs;
+voodoo.abs = (x) => {return x < 0 ? -x : x;}; 	
 voodoo.numerize = Number;
 voodoo.floor = Math.floor;
 voodoo.ceil = Math.ceil;
 voodoo.tan = Math.tan;
 voodoo.sin = Math.sin;
 voodoo.cos = Math.cos;
-voodoo.max = (a, b) => {return a > b ? a : b;}; 	
 voodoo.max = (a, b) => {return a > b ? a : b;}; 	
 voodoo.min = (a, b) => {return a < b ? a : b;}; 	
 voodoo.asin = Math.asin;
