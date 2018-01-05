@@ -1,22 +1,21 @@
-voodoo - A lightweight JavaScript framework
+voodoo.js - A lightweight JavaScript framework
 
-- voodoo is meant for mathematical operations
-- voodoo is written in JavaScript way
-- voodoo is very lightweight
-- voodoo is designed to work with arrays
-- voodoo pollutes global namespace with just 1 name: voodoo
+voodoo.js works like black magic!
+
+- voodoo.js is meant for mathematical operations
+- voodoo.js is written in JavaScript way
+- voodoo.js is very lightweight
+- voodoo.js is designed to work with arrays
+- voodoo.js pollutes global namespace with just 1 name: voodoo
 
 Installation:
  - <script src='voodoo.js'></script>
  - <script>voodoo(document).ready(() => {alert("ready to use voodoo.js!");});</script>
 
 Docs:
- 1. voodoo("2^2/3*3/(4-7*(5/2.12)/(3*4.12)+4)/2.1-1").eval().to_precision(3).get() // -0.714
+ 1. voodoo("2^2/3*3/(4-7*abs(-5)/max(3,4)+4)/2.1-1").eval().to_precision(3).get() // -3.54
  2. voodoo([-7.6, 4, 5]).unit_vector().to_precision(3).join(" ").v // -0.765, 0.403, 0.503
  3. voodoo([2.3, 5, 6, 7, 8, 42]).get(-1) // 42
- 4. voodoo([2, 3, 4]).dot_product().get() // 29
- 5. voodoo.eval("phi * 4.25 / e / 3.2 * 3.21 ^ 2 ^ 2 * pi") // 263.6951319446594
- 6. voodoo([2, 4, 5]).unit_vector().square().sum().get() // 1
  
 Versions:
  - 0.1 

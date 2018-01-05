@@ -1,7 +1,7 @@
 /*
-voodoo - A lightweight JavaScript framework
+voodoo.js - A lightweight JavaScript framework
 language: JavaScript
-version: 0.2
+version: 0.3
 author: mystikkogames ( mystikkogames@protonmail.com )
 license: GPLv3
 */
@@ -19,7 +19,11 @@ function Exampler() {
 		this.n++;	
 	};
 	
-	this.unittests = () => {	
+	this.unittests = () => {
+		assert(voodoo("2^2/3*3/(4-7*abs(-5)/max(3,4)+4)/2.1-1").eval().to_precision(3).get() == -3.54);
+		assert(voodoo("2^2/3*3/(4-7*abs(max(-5, -7))/max(3,4)+4)/2.1-1").eval().to_precision(3).get() == -3.54);
+		assert(voodoo.delta(voodoo("asin(1/2)").eval().get() - Math.asin(1/2), 0.01));
+		assert(voodoo("5 % 3").eval().get() == 2);
 		assert(voodoo(42).multiply(2).get() == 2 * 42);		
 		assert(voodoo(42 * 42).sqrt().get() == 42);
 		assert(voodoo([2, 7, 42]).get(-1) == 42);
@@ -48,29 +52,34 @@ function Exampler() {
 		assert(voodoo(10).average().get() == 10);	
 		assert(voodoo(["1 / 1", "2"]).eval().get() == 1);	
 		assert(voodoo.eval("1 / 1") == 1);	
+		assert(voodoo.floor(voodoo.eval("3*5/(1/5.3)*32")) == voodoo.floor(3*5/(1/5.3)*32));
+		assert(voodoo.floor(voodoo.eval("7-3.2*(-5)/(1/5.3)*32")) == voodoo.floor(7-3.2*(-5)/(1/5.3)*32));
+		assert(voodoo.floor(voodoo.eval("2^2-3.2*(-5-1)*3/(1/(-5.3))*32")) == voodoo.floor(2**2-3.2*(-5-1)*3/(1/(-5.3))*32));
 		assert(voodoo("1 / 2").eval().to_precision(2).get() == 0.5);	
 		assert(voodoo("42 / 2").eval().to_precision(3).get() == 21);	
 		assert(voodoo(["1", "2"]).eval().sum().get() == 3);			
-		assert(voodoo("2^2/4*pi*e").eval().to_precision(6).get() == 8.53973);			
-		assert(voodoo("3^2^2*pi").eval().to_precision(6).get() == 254.469);			
+		assert(voodoo("2^2/4*PI*E").eval().to_precision(6).get() == 8.53973);			
+		assert(voodoo("3^2^2*PI").eval().to_precision(6).get() == 254.469);			
 		assert(voodoo("3*4.25/7/3.2*3.21^2^2").eval().to_precision(4).get() == 60.43);	
 		assert(voodoo("3*4.25/7/3.2").eval().to_precision(3).get() == 0.569);	
 		assert(voodoo("9*8/9-3+2").eval().to_precision(3).get() == 7);	
 		assert(voodoo("6*8/9-3+2").eval().to_precision(2).get() == 4.3);
 		assert(voodoo("3+4*2/(1-5)^2^3").eval().to_precision(6).get() == 3.00012);	
 		assert(voodoo("2*3/(4-7*(5/2.12)/(3*4.12)+4)/2.1-1-1").eval().to_precision(3).get() == -1.57);			
-		print("voodoo unittests OK!");
+		print(`${voodoo.NAME} unittests OK!`);
 		return this;
 	};
 	
 	this.docs = () => {		
-		var e = voodoo().timer_start();		
+		var e = voodoo().timer_start();			
 		this.n = 0;
-		this.example("voodoo(\"2^2/3*3/(4-7*(5/2.12)/(3*4.12)+4)/2.1-1\").eval().to_precision(3).get()");	
+		this.example("voodoo(\"2^2/3*3/(4-7*abs(-5)/max(3,4)+4)/2.1-1\").eval().to_precision(3).get()");	
 		this.example("voodoo([-7.6, 4, 5]).unit_vector().to_precision(3).join(\" \").v");			
 		this.example("voodoo([2.3, 5, 6, 7, 8, 42]).get(-1)");
 		this.example("voodoo([2, 3, 4]).dot_product().get()");
-		this.example("voodoo.eval(\"phi * 4.25 / e / 3.2 * 3.21 ^ 2 ^ 2 * pi\")");	
+		this.example("voodoo.eval(\"PHI * abs(-1 * PI)\")");	
+		this.example("voodoo.eval(\"abs(min(-4, -2))\")");	
+		this.example("voodoo.eval(\"PHI * 4.25 / E / 3.2 * 3.21 ^ 2 ^ 2 * PI\")");	
 		this.example("voodoo([2, 4, 5]).unit_vector().square().sum().get()");	
 		this.example("voodoo(\"12.12345\").to_precision(3).get()");
 		this.example("voodoo(\"1 + 1\").eval().get()");	
