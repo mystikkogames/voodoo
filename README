@@ -11,7 +11,7 @@ Installation:
  - <script>voodoo(document).ready(() => {alert("ready to use voodoo.js!");});</script>
 
 Docs:
- 1. voodoo("2^2^2/11.3*3/(4-7*(5/2.12)/(3*4.12)+4)/2.1-1-1").eval().to_precision(4).get() // -1.696
+ 1. voodoo("2^2/3*3/(4-7*(5/2.12)/(3*4.12)+4)/2.1-1").eval().to_precision(3).get() // -0.714
  2. voodoo([-7.6, 4, 5]).unit_vector().to_precision(3).join(" ").v // -0.765, 0.403, 0.503
  3. voodoo([2.3, 5, 6, 7, 8, 42]).get(-1) // 42
  4. voodoo([2, 3, 4]).dot_product().get() // 29

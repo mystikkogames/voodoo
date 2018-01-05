@@ -66,7 +66,7 @@ function Exampler() {
 	this.docs = () => {		
 		var e = voodoo().timer_start();		
 		this.n = 0;
-		this.example("voodoo(\"2^2^2/11.3*3/(4-7*(5/2.12)/(3*4.12)+4)/2.1-1-1\").eval().to_precision(4).get()");	
+		this.example("voodoo(\"2^2/3*3/(4-7*(5/2.12)/(3*4.12)+4)/2.1-1\").eval().to_precision(3).get()");	
 		this.example("voodoo([-7.6, 4, 5]).unit_vector().to_precision(3).join(\" \").v");			
 		this.example("voodoo([2.3, 5, 6, 7, 8, 42]).get(-1)");
 		this.example("voodoo([2, 3, 4]).dot_product().get()");
