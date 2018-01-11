@@ -1,10 +1,11 @@
 /*
-voodoo.js - A lightweight JavaScript framework
+voodoo.js - A lightweight JavaScript library
 language: JavaScript
-version: 0.3
+version: 0.32
 author: mystikkogames ( mystikkogames@protonmail.com )
 license: GPLv3
 */
+'use strict';
 function Exampler() {	
 	var print = voodoo.print;
 	var assert = voodoo.assert;
@@ -19,7 +20,7 @@ function Exampler() {
 		this.n++;	
 	};
 	
-	this.unittests = () => {
+	this.unittests = () => {		
 		assert(voodoo("2^2/3*3/(4-7*abs(-5)/max(3,4)+4)/2.1-1").eval().to_precision(3).get() == -3.54);
 		assert(voodoo("2^2/3*3/(4-7*abs(max(-5, -7))/max(3,4)+4)/2.1-1").eval().to_precision(3).get() == -3.54);
 		assert(voodoo.delta(voodoo("asin(1/2)").eval().get() - Math.asin(1/2), 0.01));
@@ -37,14 +38,24 @@ function Exampler() {
 		assert(voodoo(voodoo.range(4, 6)).len() == 3);	
 		assert(voodoo(voodoo.range(1, 122)).get(-1) == 122);	
 		assert(voodoo.range(4, 6).length == 3);	
+		assert(voodoo.range(1, 1).length == 1);	
 		assert(voodoo(42*42).sqrt().get() == 42);		
 		assert(voodoo([2, 3]).each(x => {return 2 * x;}).sum().get() == 2*2 + 2*3);		
 		assert(voodoo({a:34, b:77}).extend({b:42}).get().b == 42);			
 		assert(voodoo({a:34, b:77}).extend({a:42}).get().a == 42);		
 		assert(voodoo({a:34, b:77}).extend({x:42}).get().x == 42);		
 		assert(voodoo([9, 16]).sqrt().sum().get() == 7);
+		assert(voodoo.is_numeric(9));
+		assert(voodoo.is_numeric(9.2));
+		assert( ! voodoo.is_numeric([]));
+		assert( ! voodoo.is_numeric({}));		
 		assert(voodoo([1, 2, 3]).plus(1).sum().get() == 9);		
 		assert(voodoo([25, 9, 16]).sqrt().sum().get() == 12);	
+		c = voodoo.extend([1,2,3], [2,3,4]); assert(c[0] == 2 && c[1] == 3 && c[2] == 4);
+		c = voodoo.extend({a:1,b:2,c:3}, {a:11,c:13}); assert(c.a == 11 && c.c == 13);		
+		c = voodoo.extend([1,2,[1,2],3], [1,2,[1,42],3]); assert(c[2][1] == 42);
+		c = voodoo.extend({a:1, b:2, c:[1,{r:1}],f:3}, {c:[1,{r:42}]}); assert(c.c[1].r == 42);		
+		c = voodoo.extend({a:1, b:2, c:[1,42],f:3}, 1); assert(c.c[1] == 42);		
 		assert(voodoo.stringify_complex({re: 2, im: -5}) == "2 -5i");			
 		assert(voodoo("1 + 1").eval().get() == 2);	
 		assert(voodoo("1 / 1").eval().get() == 1);	
@@ -70,11 +81,12 @@ function Exampler() {
 		return this;
 	};
 	
-	this.docs = () => {		
+	this.docs = () => {			
 		var e = voodoo().timer_start();			
 		this.n = 0;
 		this.example("voodoo(\"2^2/3*3/(4-7*abs(-5)/max(3,4)+4)/2.1-1\").eval().to_precision(3).get()");	
-		this.example("voodoo([-7.6, 4, 5]).unit_vector().to_precision(3).join(\" \").v");			
+		this.example("voodoo([-7.6, 4, 5]).unit_vector().to_precision(3).join(\" \").v");		
+		this.example("voodoo([[1,2,3]]).extend([11,13]).join(\" \").v");			
 		this.example("voodoo([2.3, 5, 6, 7, 8, 42]).get(-1)");
 		this.example("voodoo([2, 3, 4]).dot_product().get()");
 		this.example("voodoo.eval(\"PHI * abs(-1 * PI)\")");	

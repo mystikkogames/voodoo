@@ -1,28 +1,24 @@
-voodoo.js - A lightweight JavaScript framework
+voodoo.js - A lightweight JavaScript library
 
 voodoo.js works like black magic!
 
 - voodoo.js is meant for mathematical operations
-- voodoo.js is written in JavaScript way
 - voodoo.js is very lightweight
 - voodoo.js is designed to work with arrays
 - voodoo.js pollutes global namespace with just 1 name: voodoo
 
 Installation:
- - <script src='voodoo.js'></script>
- - <script>voodoo(document).ready(() => {alert("ready to use voodoo.js!");});</script>
+ - <script src="voodoo.js"></script>
+ - <script>voodoo(document).ready(() => {voodoo("div").query().shake();});</script>
 
-Docs:
- 1. voodoo("2^2/3*3/(4-7*abs(-5)/max(3,4)+4)/2.1-1").eval().to_precision(3).get() // -3.54
- 2. voodoo([-7.6, 4, 5]).unit_vector().to_precision(3).join(" ").v // -0.765, 0.403, 0.503
- 3. voodoo([2.3, 5, 6, 7, 8, 42]).get(-1) // 42
- 
-Versions:
- - 0.1 
-  - Initial release.
-  
- - 0.2
-  - Improvements
-  
- - 0.3
-  - Bug fixes
+Examples:
+ - voodoo("2^2/3*3/(4-7*abs(-5)/max(3,4)+4)/2.1-1")
+  .eval().to_precision(3).get() // -3.54
+ - voodoo([-7.6, 4, 5]).unit_vector()
+  .to_precision(3).join(" ").v // -0.765, 0.403, 0.503
+ - voodoo([2.3, 5, 6, 7, 8, 42]).get(-1) // 42
+ - voodoo("#example4").query().css({opacity: 1})
+  .click((e) => {voodoo(e.srcElement).fade_out();});
+ - voodoo("#easing2").query().click((e) => {voodoo(e.srcElement)
+  .anim_x({time: 1500, change: 50})
+  .anim_rotate({time: 1500, change: 90});}); // graphical fx 	
