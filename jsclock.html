@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<title>voodoo.js</title>
+		<script src='voodoo.js'></script>
+		<script src='jsclock.js'></script>
+		<script type="text/javascript"> 			
+			voodoo(document).ready(() => {
+				voodoo("body").query()
+					.jsclock({use_dots:1, len:50, x:100, y:100, hour_add:4, text: "Kolkata"})
+					.jsclock({use_dots:1, len:50, x:250, y:100, hour_add:0, text: "Current"})
+					.jsclock({use_dots:1, len:50, x:400, y:100, hour_add:-8, text: "Chigago"})
+					.jsclock({use_dots:0, len:150, x:250, y:350});
+			});
+		</script>
+	</head>
+	<body></body>
+</html>

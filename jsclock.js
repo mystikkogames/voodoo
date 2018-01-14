@@ -1,7 +1,6 @@
 /*
 voodoo.js - A lightweight JavaScript library
-language: JavaScript
-version: 0.32
+version: 0.2
 author: mystikkogames ( mystikkogames@protonmail.com )
 license: GPLv3
 */
@@ -10,7 +9,7 @@ license: GPLv3
 voodoo("#wrapper").query().jsclock({use_dots:1, len:50, x:100, y:100, hour_add:4, text: "Kolkata"});
 */
 
-(function() {
+(() => {
 function jsclock(o2) {
 	var o = voodoo.extend({
 		len:50, 
@@ -78,12 +77,12 @@ function jsclock(o2) {
 		let t = (voodoo.seconds()) / (60);
 		let deg = voodoo.floor(360*t)%360;
 		voodoo(`#${idhandseconds}`)
-		.query()
-		.css({transformOrigin: "0 0"})
-		.css({position: "absolute", left: `${X}px`, top: `${Y}px`})
-		.anim_rotate({time: 500, change: deg-90})
-		.interval((e) => {voodoo(e).anim_rotate({time: 500, change: (360 / 60)});}, 1000)
-		;
+			.query()
+			.css({transformOrigin: "0 0"})
+			.css({position: "absolute", left: `${X}px`, top: `${Y}px`})
+			.anim_rotate({time: 500, change: deg-90})
+			.interval((e) => {voodoo(e).anim_rotate({time: 500, change: (360 / 60)});}, 1000)
+			;
 	}
 	
 	function create_minutes() {
@@ -91,12 +90,12 @@ function jsclock(o2) {
 		let t = (60*voodoo.minutes()+voodoo.seconds()) / (60*60);
 		let deg = voodoo.floor(360*t)%360;			
 		voodoo(`#${idhandminutes}`)
-		.query()
-		.css({transformOrigin: "0 0"})
-		.css({position: "absolute", left: `${X}px`, top: `${Y}px`})
-		.anim_rotate({time: 500, change: deg-90})
-		.interval((e) => {voodoo(e).anim_rotate({time: 500, change: (360 / 60)});}, 60*1000)
-		;
+			.query()
+			.css({transformOrigin: "0 0"})
+			.css({position: "absolute", left: `${X}px`, top: `${Y}px`})
+			.anim_rotate({time: 500, change: deg-90})
+			.interval((e) => {voodoo(e).anim_rotate({time: 500, change: (360 / 60)});}, 60*1000)
+			;
 	}
 	
 	function create_hours() {
@@ -104,12 +103,12 @@ function jsclock(o2) {
 		var t = (60*60*((voodoo.hours()+o.hour_add)%12)+60*voodoo.minutes()+voodoo.seconds()) / (12*60*60);
 		var deg = voodoo.floor(360*t)%360;			
 		voodoo(`#${idhandhours}`)
-		.query()
-		.css({transformOrigin: "0 0"})
-		.css({position: "absolute", left: `${X}px`, top: `${Y}px`})
-		.anim_rotate({time: 500, change: deg-90})
-		.interval((e) => {voodoo(e).anim_rotate({time: 500, change: (360 / (12*60))});}, 60*1000)
-		;
+			.query()
+			.css({transformOrigin: "0 0"})
+			.css({position: "absolute", left: `${X}px`, top: `${Y}px`})
+			.anim_rotate({time: 500, change: deg-90})
+			.interval((e) => {voodoo(e).anim_rotate({time: 500, change: (360 / (12*60))});}, 60*1000)
+			;
 	}
 	
 	function create_text() {
@@ -125,14 +124,19 @@ function jsclock(o2) {
 	create_hours();				
 	create_seconds();
 }
+jsclock.VERSION = 0.2;
 
-voodoo.proto.jsclock = function(o) {return this.each((e) => {jsclock(voodoo.extend({elem:e}, o));});};
-			
-voodoo.proto.jsclock.create_elem = function() {
-	const id = voodoo.floor(voodoo.random(10, 1100));
-	const nn = "ert"+id;
+function create_elem(f) {
+	const nn = `ert${voodoo.floor(voodoo.random(10, 1100))}`;
 	voodoo("body").query().append_html(`<div id="${nn}"></div>`);
-	return `#${nn}`;
-};
+	voodoo.delay(() => {f(0, `#${nn}`);}, 3); // 3ms delay to let the DOM sink in...
+};	
+function create_elem_promised() {return new Promise((resolve, reject) => {create_elem((error, data) => {if (error) reject(error); else resolve(data);});});}
+
+async function create_elem2() {const x = await create_elem_promised(); return x;}
+
+voodoo.proto.jsclock = function(o) {return this.each((e) => {
+	create_elem_promised().then(text => {jsclock(voodoo.extend({elem: voodoo(text).query().get()}, o));}).catch(error => {voodoo.error(error);});
+})};
 
 })();

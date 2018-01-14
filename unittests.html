@@ -1,0 +1,36 @@
+<html>
+<html>
+	<head>
+		<title>voodoo.js</title>
+		<script src='voodoo.js'></script>
+		<script src='unittests.js'></script>
+		<script type="text/javascript">voodoo(document).ready(() => {new Exampler().unittests().docs();});</script>
+		<style>    	
+		body {padding: 0; margin: 0; background: #FFF; font: 15px arial, sans-serif;}			
+		@import "compass/css3";
+		.everyother {background: #f6f6f6;}
+		div {width: 100%; margin: 30px;}
+		h2 {font: 400 40px/1.5 Helvetica, Verdana, sans-serif; margin: 0; padding: 0;}
+		ul {list-style-type: none; margin: 0; padding: 0;}
+		li {font: 200 15px/1.5 Helvetica, Verdana, sans-serif; border-bottom: 0;}
+		li:last-child {border: none;}
+		li a {text-decoration: none; color: #000;
+		-webkit-transition: font-size 0.3s ease, background-color 0.3s ease;
+		-moz-transition: font-size 0.3s ease, background-color 0.3s ease;
+		-o-transition: font-size 0.3s ease, background-color 0.3s ease;
+		-ms-transition: font-size 0.3s ease, background-color 0.3s ease;
+		transition: font-size 0.3s ease, background-color 0.3s ease;
+		display: block;
+		width: 100%;
+		padding: 5px;
+		}
+		li a:hover {font-size: 17px; background: #EEE;}
+		</style>
+	</head>
+	<body>
+		<div>
+		  <h2>voodoo.js docs</h2>
+		  <ul id="unittests"> </ul></div>
+		<div id="voodoo"></div>
+	</body>
+</html>
