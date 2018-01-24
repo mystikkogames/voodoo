@@ -1,0 +1,125 @@
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<html>
+	<head>
+		<title>voodoo.js / examples</title>
+		<script src='../src/voodoo.js'></script>
+		<script type="text/javascript">
+			voodoo(document).ready(() => {
+			
+				// #1
+				voodoo("#example1").query().click(e => {
+					voodoo(e.target)
+					.anim_x({time: 1500, change: 50})
+					.anim_rotate({time: 1500, change: 90})
+					;
+				});
+
+				// #2
+				voodoo("#example2").query().css({opacity: 1}).click(e => {voodoo(e.target).fade_toggle();});
+				
+				// #3
+				voodoo("#example3").query().css({opacity: 1}).click(e => {  
+					voodoo(e.target)
+					.anim_x({time: 500, change: voodoo.random(-5, 75)})
+					.anim_y({time: 1300, change: voodoo.random(0, -75)})
+					.anim_rotate({time: 1500, change: voodoo.random(-55, -55)})
+					;
+				});	
+				
+				// #4				
+				voodoo("#example4").query().css({opacity: 1}).click(e => {voodoo(e.target).fade_out();});
+				
+				// #5
+				voodoo("#example5").query().interval(e => {
+					voodoo(e)
+					.anim_x({time: 500, change: voodoo.random(-5, 5)})
+					.anim_y({time: 500, change: voodoo.random(-5, 5)})
+					.anim_rotate({time: 500, change: voodoo.random(-55, 55)})
+					;
+				}, 500);
+				
+				// #6
+				voodoo("#example6").query().interval(e => {
+					voodoo(e)
+					.anim_rotate({time: 1000, change: 90})
+					;
+				}, 1000);
+				
+				// #7
+				voodoo("#example7").query().click(e => {voodoo(e.target).toggle_class("classy");});					
+				
+				// #8
+				voodoo("#example8").query().click(e => {voodoo(e.target).anim_rotate({time: 1000, change: 90});});
+				
+				// #9
+				voodoo("#example9").query().css({opacity:1}).click(e => {
+					var t = e.target; if (voodoo(t).opacity() < 0.9) {voodoo(t).fade_in({fade_to: 1});} else voodoo(t).fade_out({fade_to: 0.25});});	
+					
+				// #10
+				voodoo("#example10").query().draggable({init:(ev)=>{voodoo(ev.target).shake_x();}});
+				voodoo("#example11").query().droppable({
+					over: (ev)=>{voodoo(ev.target);},
+					done: (ev)=>{
+						let data = ev.dataTransfer.getData("text");
+						if (data == "example10")
+							voodoo(ev.target).shake_y().html(voodoo.make_number(voodoo("#example11").query().html()) + 1);
+					}
+				});
+				
+				// #12
+				voodoo("#example12").query().click(e => {voodoo(e.target).shake_x();});	
+				
+				// #13
+				voodoo("#example13").query().click(e => {voodoo(e.target).shake_y();});	
+				
+				// #14
+				voodoo.ajax({url: "https://httpbin.org/get", type: "GET", success: (x)=>{
+					voodoo("#example14").query().html(x).shake_x();
+				}});
+
+			});
+		</script>
+		<style>    	
+			body {padding: 0; margin: 0; background: #FFF; font: 15px arial, sans-serif;}
+			.box {
+				margin: 10px; 
+				padding: 10px; 
+				width: 100px; 
+				height: 100px; 
+				background: #0074D9; 
+				border-color: #001f3f; 
+				border-style: groove; 
+				border-width: 2px; 
+				border-radius: 15px;
+				overflow: hidden;
+				text-overflow: ellipsis; 
+				text-overflow: clip;
+				font-style: oblique;
+				font-size: 3em;
+			}
+			.box:hover {background: #ccc;}
+			.classy {background: #3CC;}
+			.classy:hover {background: #3CC;}
+			.wrapper {display: grid; grid-template-columns: 200px 200px 200px; grid-gap: 10px; background-color: #fff; color: #444;}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="box" id="example1">#1</div>
+			<div class="box" id="example2">#2</div>
+			<div class="box" id="example3">#3</div>
+			<div class="box" id="example4">#4</div>
+			<div class="box" id="example5">#5</div>
+			<div class="box" id="example6">#6</div>
+			<div class="box" id="example7">#7</div>
+			<div class="box" id="example8">#8</div>
+			<div class="box" id="example9">#9</div>
+			<div class="box" id="example10">#10</div>
+			<div class="box" id="example11">#11</div>
+			<div class="box" id="example12">#12</div>
+			<div class="box" id="example13">#13</div>
+			<div class="box" id="example14">#14</div>
+		</div>
+	</body>
+</html>

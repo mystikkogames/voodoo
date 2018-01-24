@@ -1,0 +1,39 @@
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<html>
+	<head>
+		<title>voodoo.js / vocookie.js</title>
+		<script src='../src/voodoo.js'></script>
+		<script src='../components/vcookie.js'></script>
+		<script type="text/javascript">
+			voodoo(document).ready(() => {
+
+                // #15 cookie        
+				voodoo({action: "set", name: "vocookie", value: 42, expires: voodoo.get_date(5)}).vocookie();
+				voodoo("#vocookie").query().html("vocookie = " + voodoo({action: "get", name: "vocookie"}).vocookie().first());
+                voodoo.delay(()=>{voodoo("#vocookie").query().html("vocookie = " + voodoo({action: "get", name: "vocookie"}).vocookie().multiply(2).first());}, 1000);
+                voodoo.delay(()=>{voodoo("#vocookie").query().html("vocookie = " + voodoo({action: "get", name: "vocookie"}).vocookie().first());}, 5000);
+				
+
+			});
+		</script>
+		<style>    	
+			body {padding: 0; margin: 0; background: #FFF; font: 15px arial, sans-serif;}
+			#vocookie {
+				margin: 10px; 
+				padding: 10px; 
+				width: 100px; 
+				height: 100px; 
+				background: #CCC; 
+				border-color: #001f3f; 
+				border-style: groove; 
+				border-width: 2px; 
+				border-radius: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="vocookie"></div>
+
+	</body>
+</html>

@@ -1,0 +1,19 @@
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<html>
+	<head>
+		<title>voodoo.js / vclock.js</title>
+		<script src='../src/voodoo.js'></script>
+		<script src='../components/vclock.js'></script>
+		<script type="text/javascript"> 			
+			voodoo(document).ready(() => {
+				voodoo("body").query()
+					.vclock({use_dots:1, len:50, x:100, y:100, hour_add:4, text: "Kolkata"})
+					.vclock({use_dots:1, len:50, x:250, y:100, hour_add:0, text: "Current"})
+					.vclock({use_dots:1, len:50, x:400, y:100, hour_add:-8, text: "Chigago"})
+					.vclock({use_dots:0, len:150, x:250, y:350});
+			});
+		</script>
+	</head>
+	<body></body>
+</html>

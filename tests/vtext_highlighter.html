@@ -1,0 +1,34 @@
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<html>
+	<head>
+		<title>voodoo.js / text_highlighter.js</title>
+		<script src='../src/voodoo.js'></script>
+		<script src='../components/vtext_highlighter.js'></script>
+		<script type="text/javascript">
+			voodoo(document).ready(() => {
+
+				voodoo("#lorem").query()
+					.vtext_highlighter("Pellentesque")
+					.vtext_highlighter(/(\w+\,)/gi, "#ccc")
+				;
+
+			});
+		</script>
+		<style>    	
+			body {padding: 0; margin: 0; background: #FFF; font: 15px arial, sans-serif;}
+		</style>
+	</head>
+	<body>
+		<div id="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse porttitor nibh quis sapien faucibus tincidunt. Aenean porta ligula ultricies, faucibus mi vel, feugiat neque. Curabitur bibendum nibh at dui dignissim luctus. Vestibulum sagittis lectus et dui pellentesque, vel facilisis sapien laoreet. Integer non tellus ac lacus congue vehicula quis a magna. Donec dapibus velit vitae venenatis pellentesque. Donec vestibulum ullamcorper ante, eget tempus nisi sollicitudin vitae. Cras eu tortor vel nulla fermentum tincidunt sit amet eget dolor. Ut placerat mi ut turpis finibus posuere. Nulla mollis a lectus in aliquam. Duis quis ultricies ipsum, a venenatis nunc.
+
+Duis vestibulum feugiat dolor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec tincidunt fringilla nisi, et efficitur eros sodales nec. Sed non ante sit amet justo mollis molestie. Pellentesque eu ultricies elit. Nam ligula justo, porta porttitor condimentum eu, faucibus eu leo. Etiam pellentesque, ligula in tincidunt facilisis, neque elit auctor nulla, ac ultrices ligula est sed tellus.
+
+Etiam leo neque, molestie nec semper id, eleifend sodales ante. Praesent bibendum dolor nec congue aliquet. Ut lacinia nibh sed varius finibus. Pellentesque ante erat, mollis accumsan lectus ut, auctor gravida nibh. Aenean tortor lacus, gravida vitae accumsan vel, pulvinar id risus. Phasellus nec porttitor erat, quis vestibulum felis. Quisque et nulla in nulla mollis facilisis.
+
+Donec ac eros ut leo laoreet ultrices et sit amet nisl. Morbi dictum libero mattis, tempus elit quis, fringilla odio. Vivamus aliquet augue id odio sodales congue. Aenean et condimentum ex. Aenean et dolor sem. Duis nec turpis quam. Fusce pharetra, sapien vitae elementum aliquet, urna neque feugiat nibh, in faucibus turpis odio id ipsum. Nam ultricies ex sed finibus gravida. Integer volutpat dui ac nibh faucibus, semper lobortis quam rutrum. Quisque ac sagittis nibh. Fusce sit amet libero velit. Nullam non suscipit dolor. Duis convallis placerat risus eget vehicula. Nulla facilisi. Donec imperdiet elit et mauris ornare ultrices.
+
+Mauris sollicitudin enim ligula, sed semper sem tincidunt vitae. Integer eu dolor luctus, facilisis est a, tristique dui. Praesent luctus ornare sem eu tempus. Phasellus sit amet porttitor massa, non posuere velit. Pellentesque semper eu lacus laoreet tempus. Phasellus efficitur magna ut odio interdum, vitae congue ante cursus. In sagittis sagittis sem nec imperdiet. Suspendisse quis dolor eget leo efficitur suscipit eget et leo. Morbi et fermentum massa, at molestie ante. Aenean eleifend porta viverra. Integer mattis rutrum augue sit amet rhoncus. Vestibulum pellentesque eu metus non euismod. Cras ipsum mi, lacinia vel sollicitudin et, blandit eget purus. Donec malesuada sed velit eget imperdiet. Suspendisse mollis pellentesque felis, in interdum lacus imperdiet quis. Aliquam sollicitudin diam ut laoreet interdum. </div>
+
+	</body>
+</html>

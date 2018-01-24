@@ -11,6 +11,11 @@ Installation:
  - <script src="voodoo.js"></script>
  - <script>voodoo(document).ready(() => {voodoo("div").query().shake();});</script>
 
+Components:
+ - components are non-core stuff
+ - Use this model so you voodoo.js can chain things together: 
+  voodoo.proto.vocookie = () => {return this.each(e => { ... do smt ... });};
+
 Examples:
  - voodoo("2^2/3*3/(4-7*abs(-5)/max(3,4)+4)/2.1-1")
   .eval().to_precision(3).get() // -3.54

@@ -1,0 +1,29 @@
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<html>
+<html>
+	<head>
+		<title>voodoo.js / unittests.js</title>
+		<script src='../src/voodoo.js'></script>
+		<script src='../src/unittests.js'></script>
+		<script type="text/javascript">voodoo(document).ready(() => {voodoo.unittests();});</script>
+	</head>
+    <style>    	
+		body {padding: 0; margin: 0; background: #FFF; font: 15px arial, sans-serif;}
+		.assert {
+			margin: 10px; 
+			padding: 10px; 
+			height: 20px; 
+			background: #CCC; 
+			border-color: #001f3f; 
+			border-style: groove; 
+			border-width: 2px; 
+			border-radius: 15px;
+		}
+		.ok {background: #A0D36E;}
+		.error {background: #A9071E;}
+    </style>
+	<body>
+        <div id="unittests"></div>
+	</body>
+</html>
